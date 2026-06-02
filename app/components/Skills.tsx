@@ -14,31 +14,31 @@ const skillCategories = [
   {
     title: "Backend",
     icon: Code,
-    skills: ["Node.js", "Express", "Python", "Django", "GraphQL", "REST APIs"],
+    skills: ["Node.js", "Express", "Python", "Django", "REST APIs"],
     color: "from-green-500 to-blue-600",
   },
   {
     title: "Database",
     icon: Database,
-    skills: ["PostgreSQL", "MongoDB", "Redis", "Firebase", "Supabase", "Prisma"],
+    skills: ["PostgreSQL", "MongoDB", "Firebase", "Supabase"],
     color: "from-orange-500 to-red-600",
   },
   {
     title: "Mobile",
     icon: Smartphone,
-    skills: ["React Native", "Flutter", "Expo", "iOS", "Android", "PWA"],
+    skills: ["React Native", "iOS", "Android"],
     color: "from-purple-500 to-pink-600",
   },
   {
     title: "Cloud & DevOps",
     icon: Cloud,
-    skills: ["AWS", "Vercel", "Docker", "Kubernetes", "CI/CD", "Nginx"],
+    skills: ["AWS", "Vercel", "Kubernetes", "CI/CD", "Nginx"],
     color: "from-cyan-500 to-blue-600",
   },
   {
     title: "Tools & Others",
     icon: Zap,
-    skills: ["Git", "Figma", "Webpack", "Vite", "Jest", "Cypress"],
+    skills: ["Git", "Figma", "Webpack", "Vite", "Jest"],
     color: "from-yellow-500 to-orange-600",
   },
 ]
