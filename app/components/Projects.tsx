@@ -4,9 +4,24 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import ProjectCard from "./ProjectCard"
 
-// No projectVariants object needed as animations are applied directly.
+interface Project {
+  id: string
+  name: string
+  description: string
+  githubUrl?: string
+  liveUrl?: string
+  technologies?: string[]
+  image?: string
+  stars?: number
+  forks?: number
+  type?: string
+}
 
-export default function Projects({ projects }) {
+interface ProjectsProps {
+  projects: Project[]
+}
+
+export default function Projects({ projects }: ProjectsProps) {
   const headingRef = useRef(null)
   const isHeadingInView = useInView(headingRef, { once: true, amount: 0.5 })
 

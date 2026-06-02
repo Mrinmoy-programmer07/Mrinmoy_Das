@@ -83,81 +83,76 @@ export default function Experience() {
       </motion.h2>
 
       <div className="max-w-4xl mx-auto">
-        {experiences?.map((experience, index) => {
-          const cardRef = useRef(null)
-          const isCardInView = useInView(cardRef, { once: true, amount: 0.2 })
+        {experiences.map((experience, index) => (
+          <motion.div
+            key={experience.id}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+            className="relative pl-8 pb-12 last:pb-0"
+          >
+            {/* Timeline line */}
+            {index !== experiences.length - 1 && (
+              <div className="absolute left-4 top-12 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 to-pink-500" />
+            )}
 
-          return (
+            {/* Timeline dot */}
+            <div className="absolute left-3 top-2 w-3 h-3 rounded-full bg-purple-500 ring-4 ring-purple-500/20" />
+
             <motion.div
-              key={experience.id}
-              ref={cardRef}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-              className="relative pl-8 pb-12 last:pb-0"
+              whileHover={{ y: -4, boxShadow: "0 0 25px rgba(142, 68, 173, 0.6)" }}
+              className="bg-gradient-to-br from-gray-900/80 to-purple-900/20 backdrop-blur-sm rounded-2xl p-6 border border-gray-800 hover:border-purple-500/50 transition-all duration-300"
             >
-              {/* Timeline line */}
-              {index !== experiences.length - 1 && (
-                <div className="absolute left-4 top-12 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 to-pink-500" />
-              )}
-              
-              {/* Timeline dot */}
-              <div className="absolute left-3 top-2 w-3 h-3 rounded-full bg-purple-500 ring-4 ring-purple-500/20" />
-
-              <motion.div
-                whileHover={{ y: -4, boxShadow: "0 0 25px rgba(142, 68, 173, 0.6)" }}
-                className="bg-gradient-to-br from-gray-900/80 to-purple-900/20 backdrop-blur-sm rounded-2xl p-6 border border-gray-800 hover:border-purple-500/50 transition-all duration-300"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold text-purple-300">{experience.role}</h3>
-                  <span className="text-sm text-gray-400 mt-1 sm:mt-0">{experience.period}</span>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
-                  <h4 className="text-lg text-gray-300">{experience.company}</h4>
-                  {experience.location && (
-                    <>
-                      <span className="hidden sm:inline text-gray-500">•</span>
-                      <span className="text-sm text-gray-400">{experience.location}</span>
-                    </>
-                  )}
-                  {experience.type && (
-                    <>
-                      <span className="hidden sm:inline text-gray-500">•</span>
-                      <span className="text-sm bg-purple-600/20 px-2 py-0.5 rounded-full text-purple-300">
-                        {experience.type}
-                      </span>
-                    </>
-                  )}
-                </div>
-                <p className="text-gray-400 mb-4">{experience.description}</p>
-                
-                {experience.achievements && experience.achievements.length > 0 && (
-                  <div className="mb-4">
-                    <h5 className="text-sm font-semibold text-purple-300 mb-2">Key Achievements:</h5>
-                    <ul className="list-disc list-inside space-y-1">
-                      {experience.achievements.map((achievement, idx) => (
-                        <li key={idx} className="text-sm text-gray-400">{achievement}</li>
-                      ))}
-                    </ul>
-                  </div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                <h3 className="text-xl font-semibold text-purple-300">{experience.role}</h3>
+                <span className="text-sm text-gray-400 mt-1 sm:mt-0">{experience.period}</span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
+                <h4 className="text-lg text-gray-300">{experience.company}</h4>
+                {experience.location && (
+                  <>
+                    <span className="hidden sm:inline text-gray-500">•</span>
+                    <span className="text-sm text-gray-400">{experience.location}</span>
+                  </>
                 )}
+                {experience.type && (
+                  <>
+                    <span className="hidden sm:inline text-gray-500">•</span>
+                    <span className="text-sm bg-purple-600/20 px-2 py-0.5 rounded-full text-purple-300">
+                      {experience.type}
+                    </span>
+                  </>
+                )}
+              </div>
+              <p className="text-gray-400 mb-4">{experience.description}</p>
 
-                {(experience.technologies || []).length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {(experience.technologies || []).map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-3 py-1 bg-purple-700/50 text-purple-200 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
+              {experience.achievements && experience.achievements.length > 0 && (
+                <div className="mb-4">
+                  <h5 className="text-sm font-semibold text-purple-300 mb-2">Key Achievements:</h5>
+                  <ul className="list-disc list-inside space-y-1">
+                    {experience.achievements.map((achievement, idx) => (
+                      <li key={idx} className="text-sm text-gray-400">{achievement}</li>
                     ))}
-                  </div>
-                )}
-              </motion.div>
+                  </ul>
+                </div>
+              )}
+
+              {(experience.technologies || []).length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {(experience.technologies || []).map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="px-3 py-1 bg-purple-700/50 text-purple-200 text-sm rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
             </motion.div>
-          )
-        })}
+          </motion.div>
+        ))}
       </div>
     </section>
   )

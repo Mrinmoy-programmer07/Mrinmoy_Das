@@ -7,47 +7,68 @@ import Projects from "./Projects"
 import Contact from "./Contact"
 import Experience from "./Experience"
 import Education from "./Education"
+import Skills from "./Skills"
 import Navbar from "./Navbar"
+import Footer from "./Footer"
+import CustomCursor from "./CustomCursor"
+import ScrollProgress from "./ScrollProgress"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 
-interface PortfolioClientProps {
-  projects: any[]
+interface Project {
+  id: string
+  name: string
+  description: string
+  githubUrl?: string
+  liveUrl?: string
+  technologies?: string[]
+  image?: string
+  stars?: number
+  forks?: number
+  type?: string
 }
 
-export default function PortfolioClient({ projects }: PortfolioClientProps) {
+interface PortfolioClientProps {
+  projects: Project[]
+  experiences: any[]
+}
+
+export default function PortfolioClient({ projects, experiences }: PortfolioClientProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [activeSection, setActiveSection] = useState("home")
   const [isScrolling, setIsScrolling] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // Refs for sections - moved outside conditional rendering
+  // Refs for sections
   const homeRef = useRef(null)
   const aboutRef = useRef(null)
+  const skillsRef = useRef(null)
   const projectsRef = useRef(null)
   const experienceRef = useRef(null)
   const educationRef = useRef(null)
   const contactRef = useRef(null)
 
-  // Intersection observers for each section - moved outside conditional rendering
+  // Intersection observers for each section
   const homeInView = useInView(homeRef, { margin: "-50% 0px" })
   const aboutInView = useInView(aboutRef, { margin: "-50% 0px" })
+  const skillsInView = useInView(skillsRef, { margin: "-50% 0px" })
   const projectsInView = useInView(projectsRef, { margin: "-50% 0px" })
   const experienceInView = useInView(experienceRef, { margin: "-50% 0px" })
   const educationInView = useInView(educationRef, { margin: "-50% 0px" })
   const contactInView = useInView(contactRef, { margin: "-50% 0px" })
 
-  // Update active section based on scroll position - moved outside conditional rendering
+  // Update active section based on scroll position
   useEffect(() => {
     if (homeInView) setActiveSection("home")
     else if (aboutInView) setActiveSection("about")
+    else if (skillsInView) setActiveSection("skills")
     else if (projectsInView) setActiveSection("projects")
     else if (experienceInView) setActiveSection("experience")
     else if (educationInView) setActiveSection("education")
     else if (contactInView) setActiveSection("contact")
-  }, [homeInView, aboutInView, projectsInView, experienceInView, educationInView, contactInView])
+  }, [homeInView, aboutInView, skillsInView, projectsInView, experienceInView, educationInView, contactInView])
 
-  // Handle scroll events - moved outside conditional rendering
+  // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -68,7 +89,7 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
     return () => clearTimeout(timer)
   }, [])
 
-  // Scroll to section - moved outside conditional rendering
+  // Scroll to section
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
     if (section) {
@@ -103,6 +124,12 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
           </motion.div>
         ) : (
           <>
+            {/* Custom cursor — desktop only */}
+            <CustomCursor />
+
+            {/* Scroll progress bar */}
+            <ScrollProgress />
+
             <Navbar
               activeSection={activeSection}
               isScrolling={isScrolling}
@@ -110,29 +137,41 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
               isMenuOpen={isMenuOpen}
               setIsMenuOpen={setIsMenuOpen}
             />
+
             <div className="relative pt-16">
               <section id="home" ref={homeRef} className="min-h-screen">
                 <Hero />
               </section>
+
               <section id="about" ref={aboutRef} className="min-h-screen">
                 <About />
               </section>
+
+              <section id="skills" ref={skillsRef}>
+                <Skills />
+              </section>
+
               <section id="projects" ref={projectsRef} className="min-h-screen">
                 <Projects projects={projects} />
               </section>
+
               <section id="experience" ref={experienceRef} className="min-h-screen">
                 <Experience />
               </section>
+
               <section id="education" ref={educationRef} className="min-h-screen">
                 <Education />
               </section>
+
               <section id="contact" ref={contactRef} className="min-h-screen">
                 <Contact />
               </section>
+
+              <Footer />
             </div>
           </>
         )}
       </AnimatePresence>
     </main>
   )
-} 
+}

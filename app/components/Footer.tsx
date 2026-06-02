@@ -13,13 +13,15 @@ export default function Footer() {
           {/* Social Links */}
           <div className="flex gap-6">
             {[
-              { icon: Github, href: "https://github.com", label: "GitHub" },
-              { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-              { icon: Mail, href: "mailto:john@example.com", label: "Email" },
+              { icon: Github, href: "https://github.com/Mrinmoy-programmer07", label: "GitHub" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/mrinmoy-das07/", label: "LinkedIn" },
+              { icon: Mail, href: "mailto:mrinmoyddas1@gmail.com", label: "Email" },
             ].map((social, index) => (
               <motion.a
                 key={index}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, y: -2 }}
                 className="p-3 bg-gray-900 hover:bg-purple-600/20 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30 border border-gray-700 hover:border-purple-500/50 group"
                 aria-label={social.label}
@@ -32,7 +34,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="text-center md:text-right">
             <p className="text-gray-500 flex items-center gap-2 justify-center md:justify-end">
-              © {currentYear} John Doe. Made with
+              © {currentYear} Mrinmoy Das. Made with
               <Heart size={16} className="text-purple-400 animate-pulse" />
               and code.
             </p>
